@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views import View
 
+from django.contrib import messages
 from .models import Message
 from .form import MessageForm
 
@@ -8,7 +9,7 @@ class IndexView(View):
     def get(self, request, *args, **kwargs):
         
         messages = Message.objects.all()
-        context = {"messages":messages}
+        context = {"comments":messages}
         
         return render(request, "index.html",context)
 
@@ -20,8 +21,9 @@ class IndexView(View):
             errors = form.errors
             print(errors)
             
+            messages.error(request, errors)
             #errorsを変数としてtemolateで受け取るためにrenderを使用した
-            return render(request, 'index.html', {"error": errors})
+            return redirect("message:index")
         
         print("バリデーションOK")
         form.save()

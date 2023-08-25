@@ -9,7 +9,9 @@
     <main class="container">
 
         <!-- エラーが出たとき，エラーの内容を表示する-->
-        {{ error }}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
         
         <!-- 投稿用フォーム-->
         <form action="" method="POST">
@@ -18,9 +20,9 @@
             <input class="btn btn-primary" type="submit" value = "送信">
         <form>
 
-        {% for message in messages %}
+        {% for comment in comments %}
         <div class="border">
-            {{ message.message }}
+            {{ comments.comment }}
         <div>
         {% endfor %}
     </main>
